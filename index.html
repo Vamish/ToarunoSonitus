@@ -3,113 +3,16 @@
 <head lang="zh-cn">
     <meta charset="UTF-8">
     <title>声彡 - The Silent World</title>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" href="css/volume.slider.css"/>
     <link rel="icon" href="icon.png"/>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            -webkit-transition: all 300ms;
-            -moz-transition: all 300ms;
-            -ms-transition: all 300ms;
-            -o-transition: all 300ms;
-            transition: all 300ms;
-            user-select: none;
-        }
-
-        html, body {
-            height: 100%;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        .bg-gradient {
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -999;
-            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00B0FF), to(#00E5FF));
-        }
-
-        .container {
-            width: 980px;
-            display: block;
-            margin: 0 auto;
-            clear: both;
-            position: relative;
-        }
-
-        img.logo {
-            width: 300px;
-            margin: 100px auto 0;
-            display: block;
-        }
-
-        .select-holder {
-            width: 100%;
-            margin-top: 50px;
-        }
-
-        .audio-wrapper {
-            width: 33%;
-            float: left;
-        }
-
-        .audio-content {
-            margin: 10px;
-            padding: 10px;
-            overflow: auto;
-            zoom: 1;
-            opacity: .4;
-            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00E5FF), to(#00E5FF));
-            cursor: pointer;
-            border-radius: 2px;
-        }
-
-        .audio-content .volume-ctrl {
-            display: none;
-        }
-
-        .active .audio-content {
-            opacity: 1;
-            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00E5FF), to(#18FFFF));
-            position: relative;
-        }
-
-        .active .volume-ctrl {
-            height: 100%;
-            display: block;
-        }
-
-        .audio-name {
-            width: 100px;
-            height: 100px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .active .audio-name {
-            float: left;
-        }
-
-        .volume-ctrl {
-            width: 170px;
-            position: absolute;
-            left: 120px;
-            top: 0;
-        }
-
-    </style>
 </head>
 <body>
 <div class="bg-gradient"></div>
 <section class="container">
     <img class="logo" src="img/logo-wih-slogon.png" alt="logo"/>
-    <ul class="select-holder">
+    <ul class="select-holder clearfix">
         <li class="audio-wrapper" id="rain">
             <div class="audio-content">
                 <img class="audio-name" src="img/rain.png" alt=""/>
@@ -154,6 +57,7 @@
         </li>
     </ul>
 </section>
+<footer> -- Made with love. By Vango in DIVINITI --</footer>
 <script src="js/jquery.min.js"></script>
 <script src="js/volume.ctrl.js"></script>
 <script>
