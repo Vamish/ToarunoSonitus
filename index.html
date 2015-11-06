@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>声彡 - The Silent World</title>
+    <link rel="stylesheet" href="css/volume.slider.css"/>
+    <link rel="icon" href="icon.png"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-transition: all 300ms;
+            -moz-transition: all 300ms;
+            -ms-transition: all 300ms;
+            -o-transition: all 300ms;
+            transition: all 300ms;
+            user-select: none;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .bg-gradient {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -999;
+            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00B0FF), to(#00E5FF));
+        }
+
+        .container {
+            width: 980px;
+            display: block;
+            margin: 0 auto;
+            clear: both;
+            position: relative;
+        }
+
+        img.logo {
+            width: 300px;
+            margin: 100px auto 0;
+            display: block;
+        }
+
+        .select-holder {
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .audio-wrapper {
+            width: 33%;
+            float: left;
+        }
+
+        .audio-content {
+            margin: 10px;
+            padding: 10px;
+            overflow: auto;
+            zoom: 1;
+            opacity: .4;
+            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00E5FF), to(#00E5FF));
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .audio-content .volume-ctrl {
+            display: none;
+        }
+
+        .active .audio-content {
+            opacity: 1;
+            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#00E5FF), to(#18FFFF));
+            position: relative;
+        }
+
+        .active .volume-ctrl {
+            height: 100%;
+            display: block;
+        }
+
+        .audio-name {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .active .audio-name {
+            float: left;
+        }
+
+        .volume-ctrl {
+            width: 170px;
+            position: absolute;
+            left: 120px;
+            top: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="bg-gradient"></div>
+<section class="container">
+    <img class="logo" src="img/logo-wih-slogon.png" alt="logo"/>
+    <ul class="select-holder">
+        <li class="audio-wrapper" id="rain">
+            <div class="audio-content">
+                <img class="audio-name" src="img/rain.png" alt=""/>
+
+                <div class="volume-ctrl" id="rain_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="wind">
+            <div class="audio-content">
+                <img class="audio-name" src="img/wind.png" alt=""/>
+
+                <div class="volume-ctrl" id="wind_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="tide">
+            <div class="audio-content">
+                <img class="audio-name" src="img/tide.png" alt=""/>
+
+                <div class="volume-ctrl" id="tide_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="night">
+            <div class="audio-content">
+                <img class="audio-name" src="img/night.png" alt=""/>
+
+                <div class="volume-ctrl" id="night_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="morning">
+            <div class="audio-content">
+                <img class="audio-name" src="img/morning.png" alt=""/>
+
+                <div class="volume-ctrl" id="morning_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="bell">
+            <div class="audio-content">
+                <img class="audio-name" src="img/bell.png" alt=""/>
+
+                <div class="volume-ctrl" id="bell_vol_ctrl"></div>
+            </div>
+        </li>
+    </ul>
+</section>
+<script src="js/jquery.min.js"></script>
+<script src="js/volume.ctrl.js"></script>
+<script>
+    var rainAudio = document.createElement("audio");
+    rainAudio.setAttribute("src", "audio/rain.ogg");
+    rainAudio.volume = .5;
+    rainAudio.loop = true;
+
+    var windAudio = document.createElement("audio");
+    windAudio.setAttribute("src", "audio/wind.ogg");
+    windAudio.volume = .5;
+    windAudio.loop = true;
+
+    var tideAudio = document.createElement("audio");
+    tideAudio.setAttribute("src", "audio/tide.ogg");
+    tideAudio.volume = .5;
+    tideAudio.loop = true;
+
+    var nightAudio = document.createElement("audio");
+    nightAudio.setAttribute("src", "audio/night.ogg");
+    nightAudio.volume = .5;
+    nightAudio.loop = true;
+
+    var morningAudio = document.createElement("audio");
+    morningAudio.setAttribute("src", "audio/morning.ogg");
+    morningAudio.volume = .5;
+    morningAudio.loop = true;
+
+    var bellAudio = document.createElement("audio");
+    bellAudio.setAttribute("src", "audio/bell.ogg");
+    bellAudio.volume = .5;
+    bellAudio.loop = true;
+
+    $(".audio-wrapper").click(function (e) {
+        e.preventDefault();
+        var targetClass = e.target.classList;
+
+        if (!targetClass.contains("slider-container") && !targetClass.contains("slider-wrapper") && !targetClass.contains("slider-container") && !targetClass.contains("slider-loaded") && !targetClass.contains("slider-handler") && !targetClass.contains("slider-range")) {
+
+            $(this).toggleClass("active");
+            switch (this.id) {
+                case "rain":
+                    $(this).hasClass("active") ? rainAudio.play() : rainAudio.pause();
+                    break;
+                case "wind":
+                    $(this).hasClass("active") ? windAudio.play() : windAudio.pause();
+                    break;
+                case "tide":
+                    $(this).hasClass("active") ? tideAudio.play() : tideAudio.pause();
+                    break;
+                case "night":
+                    $(this).hasClass("active") ? nightAudio.play() : nightAudio.pause();
+                    break;
+                case "morning":
+                    $(this).hasClass("active") ? morningAudio.play() : morningAudio.pause();
+                    break;
+                case "bell":
+                    $(this).hasClass("active") ? bellAudio.play() : bellAudio.pause();
+                    break;
+            }
+        }
+    });
+
+    $("#rain_vol_ctrl").volumeSlider();
+    $("#wind_vol_ctrl").volumeSlider();
+    $("#tide_vol_ctrl").volumeSlider();
+    $("#night_vol_ctrl").volumeSlider();
+    $("#morning_vol_ctrl").volumeSlider();
+    $("#bell_vol_ctrl").volumeSlider();
+
+    $(".slider-container").click(function (e) {
+        console.log($(this).parent().parent()[0].id);
+        console.log(e.offsetX);
+        var progress = new Number(e.offsetX * 100 / $(this).width()).toFixed(2);
+        $($(this)[0].firstChild.nextSibling).css("width", progress + "%");
+        $($(this)[0].lastChild).css("left", progress + "%");
+        switch ($(this).parent().parent()[0].id) {
+            case"rain_vol_ctrl":
+                rainAudio.volume = progress / 100;
+                break;
+            case"wind_vol_ctrl":
+                windAudio.volume = progress / 100;
+                break;
+            case"tide_vol_ctrl":
+                tideAudio.volume = progress / 100;
+                break;
+            case"night_vol_ctrl":
+                nightAudio.volume = progress / 100;
+                break;
+            case"morning_vol_ctrl":
+                morningAudio.volume = progress / 100;
+                break;
+            case"bell_vol_ctrl":
+                bellAudio.volume = progress / 100;
+                break;
+
+        }
+    });
+</script>
+</body>
+</html>
