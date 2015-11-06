@@ -124,6 +124,10 @@ footer {
     font-size: 12px;
 }
 
+#cnzz_stat_icon_1256725667 {
+    display: none;
+}
+
 @media (max-width: 480px) {
     .container {
         width: 100%;
