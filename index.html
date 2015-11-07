@@ -177,7 +177,6 @@
     var setAudioVolume = function (id, vol) {
         var loadedStr = id + " .slider-loaded";
         var handlerStr = id + " .slider-handler";
-        console.log($(loadedStr), $(handlerStr));
 
         switch (id.split("#")[1] + "Audio") {
             case "rainAudio":
@@ -227,7 +226,6 @@
                             setAudioVolume(id, vol);
                         }
                     }, error: function (msg) {
-                        console.log(msg);
                     }
                 });
                 break;
@@ -243,7 +241,6 @@
                             setAudioVolume(id, vol);
                         }
                     }, error: function (msg) {
-                        console.log(msg);
                     }
                 });
                 break;

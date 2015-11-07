@@ -158,4 +158,9 @@ footer {
         margin: 0 auto 10px;
         float: none;
     }
+
+    .volume-ctrl{
+        width: 150px;
+        right: 20px;
+    }
 }
