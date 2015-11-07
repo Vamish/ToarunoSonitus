@@ -61,9 +61,15 @@ img.logo {
     display: block;
 }
 
+#preset {
+    width: 300px;
+    margin: 20px auto 0;
+    display: block;
+}
+
 .select-holder {
     width: 100%;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .audio-wrapper {
@@ -142,11 +148,14 @@ footer {
         margin-top: 50px;
     }
 
+    #preset {
+        width: 90%;
+    }
+
     .audio-wrapper {
         display: block;
         width: 90%;
-        margin: 0 auto;
+        margin: 0 auto 10px;
         float: none;
-        margin-bottom: 10px;
     }
 }

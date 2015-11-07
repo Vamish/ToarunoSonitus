@@ -1,0 +1,12 @@
+{
+  "activeModel": [
+    "#rain",
+    "#wind",
+    "#night"
+  ],
+  "activeVolume": [
+    0.1529,
+    0.3706,
+    0.0824
+  ]
+}

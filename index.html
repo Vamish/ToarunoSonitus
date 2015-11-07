@@ -12,8 +12,16 @@
 </head>
 <body>
 <div class="bg-gradient"></div>
+
 <section class="container">
     <img class="logo" src="img/logo-wih-slogon.png" alt="logo"/>
+
+    <select name="preset" id="preset">
+        <option value="0">预设效果</option>
+        <option value="1">效果一</option>
+        <option value="2">效果二</option>
+    </select>
+
     <ul class="select-holder clearfix">
         <li class="audio-wrapper" id="rain">
             <div class="audio-content">
@@ -154,6 +162,91 @@
                 bellAudio.volume = progress / 100;
                 break;
 
+        }
+    });
+
+    var CloseAllAudio = function () {
+        rainAudio.pause();
+        windAudio.pause();
+        tideAudio.pause();
+        nightAudio.pause();
+        morningAudio.pause();
+        bellAudio.pause();
+    };
+
+    var setAudioVolume = function (id, vol) {
+        var loadedStr = id + " .slider-loaded";
+        var handlerStr = id + " .slider-handler";
+        console.log($(loadedStr), $(handlerStr));
+
+        switch (id.split("#")[1] + "Audio") {
+            case "rainAudio":
+                rainAudio.play();
+                rainAudio.volume = vol;
+                break;
+            case "windAudio":
+                windAudio.play();
+                windAudio.volume = vol;
+                break;
+            case "tideAudio":
+                tideAudio.play();
+                tideAudio.volume = vol;
+                break;
+            case "nightAudio":
+                nightAudio.play();
+                nightAudio.volume = vol;
+                break;
+            case "morningAudio":
+                morningAudio.play();
+                morningAudio.volume = vol;
+                break;
+            case "bellAudio":
+                bellAudio.play();
+                bellAudio.volume = vol;
+                break;
+        }
+        $(loadedStr).css("width", vol * 100 + "%");
+        $(handlerStr).css("left", vol * 100 + "%");
+    }
+</script>
+<script>
+    $("#preset").change(function () {
+        CloseAllAudio();
+        $(".audio-wrapper").removeClass("active");
+
+        switch ($("option:selected").val()) {
+            case "1":
+                $.ajax({
+                    url: "preset/bell-with-wind.json",
+                    dataType: "json",
+                    success: function (data) {
+                        for (var i = 0; i < data.activeModel.length; i++) {
+                            var id = data.activeModel[i];
+                            var vol = data.activeVolume[i];
+                            $(id).addClass("active");
+                            setAudioVolume(id, vol);
+                        }
+                    }, error: function (msg) {
+                        console.log(msg);
+                    }
+                });
+                break;
+            case "2":
+                $.ajax({
+                    url: "preset/night-with-wind-and-rain.json",
+                    dataType: "json",
+                    success: function (data) {
+                        for (var i = 0; i < data.activeModel.length; i++) {
+                            var id = data.activeModel[i];
+                            var vol = data.activeVolume[i];
+                            $(id).addClass("active");
+                            setAudioVolume(id, vol);
+                        }
+                    }, error: function (msg) {
+                        console.log(msg);
+                    }
+                });
+                break;
         }
     });
 </script>
