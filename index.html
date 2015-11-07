@@ -62,32 +62,32 @@
 <script src="js/volume.ctrl.js"></script>
 <script>
     var rainAudio = document.createElement("audio");
-    rainAudio.setAttribute("src", "audio/rain.ogg");
+    rainAudio.setAttribute("src", "audio/rain.mp3");
     rainAudio.volume = .5;
     rainAudio.loop = true;
 
     var windAudio = document.createElement("audio");
-    windAudio.setAttribute("src", "audio/wind.ogg");
+    windAudio.setAttribute("src", "audio/wind.mp3");
     windAudio.volume = .5;
     windAudio.loop = true;
 
     var tideAudio = document.createElement("audio");
-    tideAudio.setAttribute("src", "audio/tide.ogg");
+    tideAudio.setAttribute("src", "audio/tide.mp3");
     tideAudio.volume = .5;
     tideAudio.loop = true;
 
     var nightAudio = document.createElement("audio");
-    nightAudio.setAttribute("src", "audio/night.ogg");
+    nightAudio.setAttribute("src", "audio/night.mp3");
     nightAudio.volume = .5;
     nightAudio.loop = true;
 
     var morningAudio = document.createElement("audio");
-    morningAudio.setAttribute("src", "audio/morning.ogg");
+    morningAudio.setAttribute("src", "audio/morning.mp3");
     morningAudio.volume = .5;
     morningAudio.loop = true;
 
     var bellAudio = document.createElement("audio");
-    bellAudio.setAttribute("src", "audio/bell.ogg");
+    bellAudio.setAttribute("src", "audio/bell.mp3");
     bellAudio.volume = .5;
     bellAudio.loop = true;
 
@@ -129,8 +129,6 @@
     $("#bell_vol_ctrl").volumeSlider();
 
     $(".slider-container").click(function (e) {
-        console.log($(this).parent().parent()[0].id);
-        console.log(e.offsetX);
         var progress = new Number(e.offsetX * 100 / $(this).width()).toFixed(2);
         $($(this)[0].firstChild.nextSibling).css("width", progress + "%");
         $($(this)[0].lastChild).css("left", progress + "%");
