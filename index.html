@@ -22,6 +22,7 @@
         <option value="0">预设效果</option>
         <option value="1">效果一</option>
         <option value="2">效果二</option>
+        <option value="3">效果三</option>
     </select>
 
     <ul class="select-holder clearfix">
@@ -65,6 +66,27 @@
                 <img class="audio-name" src="img/bell.png" alt=""/>
 
                 <div class="volume-ctrl" id="bell_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="farm">
+            <div class="audio-content">
+                <img class="audio-name" src="img/farm.png" alt=""/>
+
+                <div class="volume-ctrl" id="farm_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="fire">
+            <div class="audio-content">
+                <img class="audio-name" src="img/fire.png" alt=""/>
+
+                <div class="volume-ctrl" id="fire_vol_ctrl"></div>
+            </div>
+        </li>
+        <li class="audio-wrapper" id="space">
+            <div class="audio-content">
+                <img class="audio-name" src="img/space.png" alt=""/>
+
+                <div class="volume-ctrl" id="space_vol_ctrl"></div>
             </div>
         </li>
     </ul>
@@ -115,6 +137,21 @@
     bellAudio.volume = .5;
     bellAudio.loop = true;
 
+    var farmAudio = document.createElement("audio");
+    farmAudio.setAttribute("src", "audio/farm.mp3");
+    farmAudio.volume = .5;
+    farmAudio.loop = true;
+
+    var fireAudio = document.createElement("audio");
+    fireAudio.setAttribute("src", "audio/fire.mp3");
+    fireAudio.volume = .5;
+    fireAudio.loop = true;
+
+    var spaceAudio = document.createElement("audio");
+    spaceAudio.setAttribute("src", "audio/space.mp3");
+    spaceAudio.volume = .5;
+    spaceAudio.loop = true;
+
     $(".audio-wrapper").click(function (e) {
         e.preventDefault();
         var targetClass = e.target.classList;
@@ -141,6 +178,15 @@
                 case "bell":
                     $(this).hasClass("active") ? bellAudio.play() : bellAudio.pause();
                     break;
+                case "farm":
+                    $(this).hasClass("active") ? farmAudio.play() : farmAudio.pause();
+                    break;
+                case "fire":
+                    $(this).hasClass("active") ? fireAudio.play() : fireAudio.pause();
+                    break;
+                case "space":
+                    $(this).hasClass("active") ? spaceAudio.play() : spaceAudio.pause();
+                    break;
             }
         }
     });
@@ -151,6 +197,9 @@
     $("#night_vol_ctrl").volumeSlider();
     $("#morning_vol_ctrl").volumeSlider();
     $("#bell_vol_ctrl").volumeSlider();
+    $("#farm_vol_ctrl").volumeSlider();
+    $("#fire_vol_ctrl").volumeSlider();
+    $("#space_vol_ctrl").volumeSlider();
 
     $(".slider-container").click(function (e) {
         var progress = new Number(e.offsetX * 100 / $(this).width()).toFixed(2);
@@ -175,6 +224,15 @@
             case"bell_vol_ctrl":
                 bellAudio.volume = progress / 100;
                 break;
+            case"farm_vol_ctrl":
+                farmAudio.volume = progress / 100;
+                break;
+            case"fire_vol_ctrl":
+                fireAudio.volume = progress / 100;
+                break;
+            case"space_vol_ctrl":
+                spaceAudio.volume = progress / 100;
+                break;
 
         }
     });
@@ -186,6 +244,9 @@
         nightAudio.pause();
         morningAudio.pause();
         bellAudio.pause();
+        farmAudio.pause();
+        fireAudio.pause();
+        spaceAudio.pause();
     };
 
     var setAudioVolume = function (id, vol) {
@@ -217,6 +278,18 @@
                 bellAudio.play();
                 bellAudio.volume = vol;
                 break;
+            case "farmAudio":
+                farmAudio.play();
+                farmAudio.volume = vol;
+                break;
+            case "fireAudio":
+                fireAudio.play();
+                fireAudio.volume = vol;
+                break;
+            case "spaceAudio":
+                spaceAudio.play();
+                spaceAudio.volume = vol;
+                break;
         }
         $(loadedStr).css("width", vol * 100 + "%");
         $(handlerStr).css("left", vol * 100 + "%");
@@ -227,39 +300,25 @@
         CloseAllAudio();
         $(".audio-wrapper").removeClass("active");
 
-        switch ($("option:selected").val()) {
-            case "1":
-                $.ajax({
-                    url: "preset/bell-with-wind.json",
-                    dataType: "json",
-                    success: function (data) {
-                        for (var i = 0; i < data.activeModel.length; i++) {
-                            var id = data.activeModel[i];
-                            var vol = data.activeVolume[i];
-                            $(id).addClass("active");
-                            setAudioVolume(id, vol);
-                        }
-                    }, error: function (msg) {
-                    }
-                });
-                break;
-            case "2":
-                $.ajax({
-                    url: "preset/night-with-wind-and-rain.json",
-                    dataType: "json",
-                    success: function (data) {
-                        for (var i = 0; i < data.activeModel.length; i++) {
-                            var id = data.activeModel[i];
-                            var vol = data.activeVolume[i];
-                            $(id).addClass("active");
-                            setAudioVolume(id, vol);
-                        }
-                    }, error: function (msg) {
-                    }
-                });
-                break;
-        }
+        $.ajax({
+            url: "preset/preset.json",
+            dataType: "json",
+            success: function (data) {
+                preset(data.presets[$("option:selected").val() - 1]);
+            }, error: function (msg) {
+                console.log("error" + msg);
+            }
+        })
     });
+
+    var preset = function (data) {
+        for (var i = 0; i < data.activeModel.length; i++) {
+            var id = data.activeModel[i];
+            var vol = data.activeVolume[i];
+            $(id).addClass("active");
+            setAudioVolume(id, vol);
+        }
+    }
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cspan id='cnzz_stat_icon_1256725667'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1256725667%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
